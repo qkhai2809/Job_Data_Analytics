@@ -114,6 +114,8 @@ Before jumping into analyzing salary of in-demand skills for Data Analyst, I'm g
 
 Click here to view step by step of this section: [3_Salary_Analysis](3_Salary_Analysis.ipynb)
 
+## Distribution of Salary for Main Data Role
+
 ### Visualize Data
 
 ```python
@@ -159,3 +161,70 @@ plt.show()
 - There is a clear conclusion between 2 graph above. Data Analyst should aim to follow to divered skill to seize nowaday's trending and enhance their values, also not skip over fundamental skills to satisfy job description.
 
 # 4.What are the most optimal skills to learn for Data Analysts?
+There will be two part of this question. First, I'm going to find out what the most optimal skills for Data analyst. Also, optionally we're going to explore more about these optimal skills relating to what technology.
+
+Click here to view step by step of this section: [4_Optimal_Skills](4_Optimal_Skills.ipynb)
+
+## Optimal Skills for Data Analyst based on Salary and Count
+
+### Visualize
+
+```python
+from adjustText import adjust_text
+from matplotlib.ticker import PercentFormatter
+
+plt.scatter(df_DA_skill['skill_percent'], df_DA_skill['median_salary'])
+
+#Prepare texts for adjusttext
+texts  = []
+for i, txt in enumerate(df_DA_skill.index):
+    texts.append(plt.text(df_DA_skill['skill_percent'].iloc[i], df_DA_skill['median_salary'].iloc[i], ' ' + txt))
+
+#Adjust text to avoid overlap
+adjust_text(texts, arrowprops=dict(arrowstyle= '->', color = 'gray'))
+
+#Adjust layout and display plot
+plt.tight_layout()
+plt.show()
+```
+### Result
+![Result](output_5.png)
+*Graph showing what the most optimal skills to learn based on demand and salary*
+
+### Insights
+- The most competitive salary skills is Oracle with $98K despite of lowest demand in this group. The point showing that a outstanding skill but less people follow will attract recruiter.
+
+- Fundamental kills have high demand like sql, excel will only have lower salary because many people can learn them. Meanwhile, Python and Tableau were the most optimal skills to learn with highest salary and demand over 8%.
+
+- So, worker will not only firmly grasp the knowledge about fundamental skills but also need to pursue new skills to advance their competition.
+
+## Technology of optimal skills
+### Visualize 
+
+```python
+from adjustText import adjust_text
+from matplotlib.ticker import PercentFormatter
+
+sns.scatterplot(data = df_DA_skills_tech, x = 'skill_percent', y = 'median_salary', hue = 'technology')
+
+# Prepare texts for adjustText
+texts = []
+for i, txt in enumerate(df_DA_skills_tech.index):
+    texts.append(plt.text(df_DA_skills_tech['skill_percent'].iloc[i], df_DA_skills_tech['median_salary'].iloc[i], ' ' + txt))
+
+# Adjust text to avoid overlap
+adjust_text(texts, arrowprops = dict(arrowstyle= '->', color = 'gray'))
+
+#Adjust layout and display
+plt.tight_layout() 
+plt.show()
+```
+
+### Result
+![Result](output_6.png)
+*Graph showing what the most optimal skills and their technology*
+
+### Insights
+- Fundamental programming technologies like python and sql are highly required and also have a high level of salary.
+- Analyst tools are not prioritized with lower salary but they have medium request
+- Databases and cloud are the highest competition salary despite of lowest demand for Data Analyst. However, they play an important role in building data pipelines.
